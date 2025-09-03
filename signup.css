@@ -1,0 +1,54 @@
+@font-face {
+    font-family: "Odysseus";
+    src: url("fonts/BlueScreenPersonalUseRegular-0W1M9.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    font-family: "Odysseus";
+    background-color: #111;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h3 {
+    font-size:  24px;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
+.container {
+    height: 500px;
+    width: 450px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: #111;
+    border: #a55b00 solid 2px;
+    clip-path: polygon(4% 0, 96% 0, 100% 4%, 100% 96%, 96% 100%, 4% 100%, 0 96%, 0 4%);
+}
+
+.selectors {
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+}
+
+#selector1 {
+    height: 30px;
+    width: 90px;
+    padding: 4px;
+    border: #a55b00 solid 2px;
+    clip-path: polygon(20% 0%, 100% 0, 90% 99%, 0 100%);
+
+}
+
