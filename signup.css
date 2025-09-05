@@ -32,7 +32,7 @@ h3 {
     display: flex;
     flex-direction: column;
     background-color: #111;
-    border: #a55b00 solid 2px;
+    border: #d16a00 solid 2px;
     clip-path: polygon(2% 0, 98% 0, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0 98%, 0 2%);
 }
 
@@ -53,11 +53,11 @@ h3 {
     justify-content: center;
     padding: 4px;
     margin-right: -2px;
-    border: #a55b00 solid 2px;
+    border: #d16a00 solid 2px;
 }
 
 #selector1 h3 {
-    color: #bebebe;
+    color: #d9d9d9;
     transform: skewX(20deg);
 }
 
@@ -70,18 +70,18 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: #a55b00 solid 2px;
+    border: #d16a00 solid 2px;
 }
 
 #selector2 h3 {
     transform: skewX(20deg);
-    color: #bebebe;
+    color: #d9d9d9;
 }
 
 .selected {
     width: 90px !important;
     height: 30px !important;
-    background-color: #a55b00;
+    background-color: #d16a00;
     color: #111;
 }
 
@@ -99,6 +99,17 @@ h1 {
     margin-bottom: 30px;
     text-align: center;
     color: #d9d9d9;
+}
+
+::-moz-selection {
+    /*for Firefox */
+    color: #111;
+    background: #d16a00;
+}
+
+::selection {
+    color: #111;
+    background: #d16a00;
 }
 
 .form-container {
@@ -129,7 +140,7 @@ h1 {
 label {
     font-size: 14px;
     margin-bottom: 8px;
-    color: #a55b00;
+    color: #d16a00;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -137,7 +148,7 @@ label {
 input {
     padding: 12px;
     background-color: #222;
-    border: 1px solid #a55b00;
+    border: 1px solid #d16a00;
     color: white;
     font-family: "Odysseus", monospace;
     font-size: 14px;
@@ -155,7 +166,7 @@ input::placeholder {
 
 .submit-btn {
     padding: 15px;
-    background-color: #a55b00;
+    background-color: #d16a00;
     color: #111;
     border: none;
     font-family: "Odysseus", monospace;
@@ -168,7 +179,7 @@ input::placeholder {
 }
 
 .submit-btn:hover {
-    background-color: #d16a00;
+    background-color: #ff8000;
 }
 
 .form-footer {
@@ -179,11 +190,13 @@ input::placeholder {
 }
 
 .form-footer a {
-    color: #a55b00;
+    color: #d16a00;
     text-decoration: none;
 }
 
 .form-footer a:hover {
+    color: #ff8000;
+
     text-decoration: underline;
 }
 
