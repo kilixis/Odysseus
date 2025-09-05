@@ -4,7 +4,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="signup.css">
+    <style>
+        @font-face {
+            font-family: "Odysseus";
+            src: url("fonts/BlueScreenPersonalUseRegular-0W1M9.ttf");
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            font-family: "Odysseus";
+            background-color: #111;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h3 {
+            font-size: 20px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        .container {
+            height: 600px;
+            width: 450px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            background-color: #111;
+            border: #d16a00 solid 2px;
+            clip-path: polygon(2% 0, 98% 0, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0 98%, 0 2%);
+        }
+
+        .selectors {
+            width: 350px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+        }
+
+        #selector1 {
+            cursor: pointer;
+            transform: skewX(-20deg);
+            height: 22px;
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            margin-right: -2px;
+            border: #d16a00 solid 2px;
+        }
+
+        #selector1 h3 {
+            color: #d9d9d9;
+            transform: skewX(20deg);
+        }
+
+        #selector2 {
+            cursor: pointer;
+            transform: skewX(-20deg);
+            height: 22px;
+            width: 80px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: #d16a00 solid 2px;
+        }
+
+        #selector2 h3 {
+            transform: skewX(20deg);
+            color: #d9d9d9;
+        }
+
+        .selected {
+            width: 90px !important;
+            height: 30px !important;
+            background-color: #d16a00;
+            color: #111;
+        }
+
+        .selected h3 {
+            font-size: 24px !important;
+        }
+
+        #selector1:not(.selected):hover,
+        #selector2:not(.selected):hover {
+            background-color: #222;
+        }
+
+        h1 {
+            font-size: 60px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #d9d9d9;
+        }
+
+        ::-moz-selection {
+            color: #111;
+            background: #d16a00;
+        }
+
+        ::selection {
+            color: #111;
+            background: #d16a00;
+        }
+
+        .form-container {
+            flex: 1;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .form-container.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #d16a00;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input {
+            padding: 12px;
+            background-color: #222;
+            border: 1px solid #d16a00;
+            color: white;
+            font-family: "Odysseus", monospace;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #fff;
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        .submit-btn {
+            padding: 15px;
+            background-color: #d16a00;
+            color: #111;
+            border: none;
+            font-family: "Odysseus", monospace;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #ff8000;
+        }
+
+        .submit-btn:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .form-footer a {
+            color: #d16a00;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            color: #ff8000;
+            text-decoration: underline;
+        }
+
+        .password-strength {
+            height: 3px;
+            margin-top: 5px;
+            background-color: #333;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            color: #27ae60;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            border-top-color: #d16a00;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
     <title>Odysseus</title>
 </head>
 
@@ -24,11 +272,13 @@
                 <div class="form-group">
                     <label for="signup-username">Username</label>
                     <input type="text" id="signup-username" name="username" placeholder="Enter username" required>
+                    <div class="error-message" id="username-error"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="signup-email">Email</label>
                     <input type="email" id="signup-email" name="email" placeholder="Enter email" required>
+                    <div class="error-message" id="email-error"></div>
                 </div>
 
                 <div class="form-group">
@@ -37,15 +287,18 @@
                     <div class="password-strength">
                         <div class="strength-bar" id="strength-bar"></div>
                     </div>
+                    <div class="error-message" id="password-error"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="signup-confirm-password">Confirm Password</label>
                     <input type="password" id="signup-confirm-password" name="confirmPassword"
                         placeholder="Confirm password" required>
+                    <div class="error-message" id="confirm-password-error"></div>
                 </div>
 
-                <button type="submit" class="submit-btn">Create Account</button>
+                <button type="submit" class="submit-btn" id="signup-btn">Create Account</button>
+                <div class="success-message" id="signup-success"></div>
             </form>
 
             <div class="form-footer">
@@ -57,35 +310,237 @@
             <h1>ODYSSEUS</h1>
             <form class="form" id="loginForm">
                 <div class="form-group">
-                    <label for="login-email">Email or Username</label>
-                    <input type="text" id="login-email" name="emailOrUsername" placeholder="Enter email or username"
-                        required>
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" placeholder="Enter email" required>
+                    <div class="error-message" id="login-email-error"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="login-password">Password</label>
                     <input type="password" id="login-password" name="password" placeholder="Enter password" required>
+                    <div class="error-message" id="login-password-error"></div>
                 </div>
 
-                <button type="submit" class="submit-btn">Log In</button>
+                <button type="submit" class="submit-btn" id="login-btn">Log In</button>
+                <div class="success-message" id="login-success"></div>
             </form>
 
             <div class="form-footer">
-                <!-- <a href="#" id="forgot-password">Forgot password?</a><br><br>-->
                 Don't have an account? <a href="#" id="switch-to-signup">Sign up here</a>
             </div>
         </div>
     </div>
-    <script src="signup.js"></script>
+
     <script type="module">
-        import { createClient } from "https://esm.sh/@supabase/supabase-js";
+        import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+        
+        // Replace with your actual Supabase URL and anon key
         const SUPABASE_URL = "https://uhjiwkqhixyqcgbqgxjx.supabase.co";
-        const SUPABASE_ANON_KEY = process.env.SUPABASE_KEY;
-
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoaml3a3FoaXh5cWNnYnFneGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MDM5MzQsImV4cCI6MjA3MjQ3OTkzNH0.miXfl_rool6fZfKNjZDqE6xl2B74f3wDBogvLNwPR40"; // Replace with your actual anon key
+        
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        window.supabase = supabase;
+        
+        // DOM elements
+        const selector1 = document.getElementById('selector1');
+        const selector2 = document.getElementById('selector2');
+        const signupForm = document.getElementById('signup-form');
+        const loginForm = document.getElementById('login-form');
+        const switchToLogin = document.getElementById('switch-to-login');
+        const switchToSignup = document.getElementById('switch-to-signup');
+        const signupPassword = document.getElementById('signup-password');
+        const strengthBar = document.getElementById('strength-bar');
+        
+        // Form switching functionality
+        function switchForm(showSignup) {
+            clearMessages();
+            if (showSignup) {
+                selector1.classList.add('selected');
+                selector2.classList.remove('selected');
+                signupForm.classList.add('active');
+                loginForm.classList.remove('active');
+            } else {
+                selector2.classList.add('selected');
+                selector1.classList.remove('selected');
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+            }
+        }
+        
+        function clearMessages() {
+            document.querySelectorAll('.error-message, .success-message').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+        }
+        
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+        
+        function showSuccess(elementId, message) {
+            const successEl = document.getElementById(elementId);
+            successEl.textContent = message;
+            successEl.style.display = 'block';
+        }
+        
+        function setLoading(buttonId, isLoading) {
+            const button = document.getElementById(buttonId);
+            if (isLoading) {
+                button.disabled = true;
+                button.innerHTML = '<span class="loading"></span>Processing...';
+            } else {
+                button.disabled = false;
+                button.innerHTML = buttonId === 'signup-btn' ? 'Create Account' : 'Log In';
+            }
+        }
+        
+        // Event listeners
+        selector1.addEventListener('click', () => switchForm(true));
+        selector2.addEventListener('click', () => switchForm(false));
+        
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForm(false);
+        });
+        
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForm(true);
+        });
+        
+        // Password strength indicator
+        signupPassword.addEventListener('input', function () {
+            const password = this.value;
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            const percentage = (strength / 5) * 100;
+            strengthBar.style.width = percentage + '%';
+            
+            if (strength <= 2) {
+                strengthBar.style.backgroundColor = '#e74c3c';
+            } else if (strength <= 3) {
+                strengthBar.style.backgroundColor = '#f39c12';
+            } else {
+                strengthBar.style.backgroundColor = '#27ae60';
+            }
+        });
+        
+        // Signup form handler
+        document.getElementById('signupForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            clearMessages();
+            
+            const formData = new FormData(this);
+            const username = formData.get('username');
+            const email = formData.get('email');
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
+            
+            // Client-side validation
+            if (password !== confirmPassword) {
+                showError('confirm-password-error', 'Passwords do not match!');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showError('password-error', 'Password must be at least 6 characters long');
+                return;
+            }
+            
+            setLoading('signup-btn', true);
+            
+            try {
+                // Sign up with Supabase
+                const { data, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            username: username
+                        }
+                    }
+                });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                if (data.user && !data.user.email_confirmed_at) {
+                    showSuccess('signup-success', 'Account created! Please check your email to verify your account.');
+                } else {
+                    showSuccess('signup-success', 'Account created successfully!');
+                }
+                
+                // Reset form
+                document.getElementById('signupForm').reset();
+                strengthBar.style.width = '0%';
+                
+            } catch (error) {
+                console.error('Signup error:', error);
+                
+                if (error.message.includes('already registered')) {
+                    showError('email-error', 'Email is already registered');
+                } else if (error.message.includes('Password')) {
+                    showError('password-error', error.message);
+                } else {
+                    showError('email-error', error.message || 'An error occurred during signup');
+                }
+            } finally {
+                setLoading('signup-btn', false);
+            }
+        });
+        
+        // Login form handler
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            clearMessages();
+            
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            setLoading('login-btn', true);
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) {
+                    throw error;
+                }
+                
+                showSuccess('login-success', 'Login successful! Redirecting...');
+                
+                // Reset form
+                document.getElementById('loginForm').reset();
+                
+                // You can redirect here if needed
+                // setTimeout(() => {
+                //     window.location.href = 'home.html';
+                // }, 1500);
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                if (error.message.includes('Invalid login credentials')) {
+                    showError('login-password-error', 'Invalid email or password');
+                } else {
+                    showError('login-email-error', error.message || 'An error occurred during login');
+                }
+            } finally {
+                setLoading('login-btn', false);
+            }
+        });
     </script>
 </body>
-
 </html>
