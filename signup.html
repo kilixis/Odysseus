@@ -334,13 +334,11 @@
     <script type="module">
         import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
         
-        // Replace with your actual Supabase URL and anon key
         const SUPABASE_URL = "https://uhjiwkqhixyqcgbqgxjx.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoaml3a3FoaXh5cWNnYnFneGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MDM5MzQsImV4cCI6MjA3MjQ3OTkzNH0.miXfl_rool6fZfKNjZDqE6xl2B74f3wDBogvLNwPR40"; // Replace with your actual anon key
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoaml3a3FoaXh5cWNnYnFneGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5MDM5MzQsImV4cCI6MjA3MjQ3OTkzNH0.miXfl_rool6fZfKNjZDqE6xl2B74f3wDBogvLNwPR40";
         
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        // DOM elements
         const selector1 = document.getElementById('selector1');
         const selector2 = document.getElementById('selector2');
         const signupForm = document.getElementById('signup-form');
@@ -350,7 +348,6 @@
         const signupPassword = document.getElementById('signup-password');
         const strengthBar = document.getElementById('strength-bar');
         
-        // Form switching functionality
         function switchForm(showSignup) {
             clearMessages();
             if (showSignup) {
@@ -396,7 +393,6 @@
             }
         }
         
-        // Event listeners
         selector1.addEventListener('click', () => switchForm(true));
         selector2.addEventListener('click', () => switchForm(false));
         
@@ -410,7 +406,6 @@
             switchForm(true);
         });
         
-        // Password strength indicator
         signupPassword.addEventListener('input', function () {
             const password = this.value;
             let strength = 0;
@@ -433,7 +428,6 @@
             }
         });
         
-        // Signup form handler
         document.getElementById('signupForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             clearMessages();
@@ -444,7 +438,6 @@
             const password = formData.get('password');
             const confirmPassword = formData.get('confirmPassword');
             
-            // Client-side validation
             if (password !== confirmPassword) {
                 showError('confirm-password-error', 'Passwords do not match!');
                 return;
@@ -458,7 +451,6 @@
             setLoading('signup-btn', true);
             
             try {
-                // Sign up with Supabase
                 const { data, error } = await supabase.auth.signUp({
                     email: email,
                     password: password,
@@ -479,7 +471,6 @@
                     showSuccess('signup-success', 'Account created successfully!');
                 }
                 
-                // Reset form
                 document.getElementById('signupForm').reset();
                 strengthBar.style.width = '0%';
                 
@@ -498,7 +489,6 @@
             }
         });
         
-        // Login form handler
         document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             clearMessages();
@@ -521,7 +511,6 @@
                 
                 showSuccess('login-success', 'Login successful! Redirecting...');
                 
-                // Reset form
                 document.getElementById('loginForm').reset();
                 
                 setTimeout(() => {
