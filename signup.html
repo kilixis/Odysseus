@@ -16,9 +16,9 @@
         }
 
         body {
+            background-color: #111;
             height: 100vh;
             font-family: "Odysseus";
-            background-color: #111;
             color: white;
             display: flex;
             flex-direction: column;
@@ -48,7 +48,7 @@
             display: flex;
             flex-direction: row;
             align-items: flex-end;
-            margin-left:20px;
+            margin-left: 20px;
         }
 
         #selector1 {
@@ -107,6 +107,7 @@
             margin-bottom: 30px;
             text-align: center;
             color: #d9d9d9;
+            mix-blend-mode: difference;
         }
 
         ::-moz-selection {
@@ -261,7 +262,7 @@
 </head>
 
 <body>
-    <div class="form-wrapper">
+    <div class="form-wrapper" style = "mix-blend-mode: difference;">
         <div class="selectors">
             <div id="selector1" class="selected">
                 <h3 data-value="SIGN UP">SIGN UP</h3>
@@ -339,6 +340,8 @@
             </div>
         </div>
     </div>
+    <div id="image-trail"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;"></div>
     <script type="module">
         import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -538,7 +541,6 @@
             }
         });
 
-        // Hacked text effect function
         function createHackedEffect(element) {
             const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             let interval = null;
@@ -569,30 +571,23 @@
             };
         }
 
-        // Apply hacked effect to specific elements
         document.addEventListener('DOMContentLoaded', function () {
-            // Apply to main title
             const mainTitle = document.querySelector("h1[data-value='ODYSSEUS']");
             if (mainTitle) {
                 createHackedEffect(mainTitle);
             }
 
-            // Apply to labels
             const labels = document.querySelectorAll('label[data-value]');
             labels.forEach(label => {
                 createHackedEffect(label);
             });
 
-            // Apply to buttons
             const buttons = document.querySelectorAll('.submit-btn[data-value]');
             buttons.forEach(button => {
                 createHackedEffect(button);
             });
 
-            // Cursor following effect - moved inside DOMContentLoaded
             const formWrapper = document.querySelector('.form-wrapper');
-
-            console.log('Form wrapper found:', formWrapper); // Debug line
 
             if (formWrapper) {
                 document.addEventListener('mousemove', function (e) {
@@ -600,21 +595,58 @@
                     const centerX = rect.left + rect.width / 2;
                     const centerY = rect.top + rect.height / 2;
 
-                    // Calculate distance from center
                     const deltaX = e.clientX - centerX;
                     const deltaY = e.clientY - centerY;
 
-                    // Apply subtle movement - increased for testing
-                    const moveX = deltaX * 0.01; // Increased from 0.008 for testing
-                    const moveY = deltaY * 0.01; // Increased from 0.008 for testing
-
+                    const moveX = deltaX * 0.01;
+                    const moveY = deltaY * 0.01;
 
                     formWrapper.style.transform = `translate(${moveX}px, ${moveY}px)`;
                 });
 
-                // Reset position when mouse leaves the window
                 document.addEventListener('mouseleave', function () {
                     formWrapper.style.transform = 'translate(0px, 0px)';
+                });
+                const imageTrail = document.getElementById('image-trail');
+                const images = [];
+                let nextImageIndex = 0;
+                let lastSpawnTime = 0;
+                const spawnDelay = 150;
+
+                const imagePaths = Array.from({ length: 28 }, (_, i) => `pics/${i + 1}.jpeg`);
+
+                imagePaths.forEach(path => {
+                    const img = document.createElement('img');
+                    img.src = path;
+                    img.style.position = 'absolute';
+                    img.style.width = '350px';
+                    img.style.height = '350px';
+                    img.style.objectFit = 'cover';
+                    img.style.opacity = '0';
+                    img.style.transition = 'opacity 0.2s ease-out';
+                    img.style.pointerEvents = 'none';
+                    img.style.transform = 'translate(-50%, -50%)';
+                    imageTrail.appendChild(img);
+                    images.push(img);
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    const currentTime = Date.now();
+
+                    if (currentTime - lastSpawnTime < spawnDelay) return;
+
+                    const img = images[nextImageIndex];
+
+                    img.style.left = e.clientX + 'px';
+                    img.style.top = e.clientY + 'px';
+                    img.style.opacity = '0.07';
+
+                    setTimeout(() => {
+                        img.style.opacity = '0';
+                    }, 850);
+
+                    nextImageIndex = (nextImageIndex + 1) % images.length;
+                    lastSpawnTime = currentTime;
                 });
             }
         });
