@@ -48,6 +48,7 @@
             display: flex;
             flex-direction: row;
             align-items: flex-end;
+            margin-left:20px;
         }
 
         #selector1 {
@@ -260,80 +261,84 @@
 </head>
 
 <body>
-    <div class="selectors">
-        <div id="selector1" class="selected">
-            <h3 data-value="SIGN UP">SIGN UP</h3>
+    <div class="form-wrapper">
+        <div class="selectors">
+            <div id="selector1" class="selected">
+                <h3 data-value="SIGN UP">SIGN UP</h3>
+            </div>
+            <div id="selector2">
+                <h3 data-value="LOG IN">LOG IN</h3>
+            </div>
         </div>
-        <div id="selector2">
-            <h3 data-value="LOG IN">LOG IN</h3>
-        </div>
-    </div>
-    <div class="container">
-        <div class="form-container signup active" id="signup-form">
-            <h1 data-value="ODYSSEUS">ODYSSEUS</h1>
-            <form class="form" id="signupForm">
-                <div class="form-group">
-                    <label for="signup-username" data-value="Username">Username</label>
-                    <input type="text" id="signup-username" name="username" placeholder="Enter username" required>
-                    <div class="error-message" id="username-error"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-email" data-value="Email">Email</label>
-                    <input type="email" id="signup-email" name="email" placeholder="Enter email" required>
-                    <div class="error-message" id="email-error"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-password" data-value="Password">Password</label>
-                    <input type="password" id="signup-password" name="password" placeholder="Enter password" required>
-                    <div class="password-strength">
-                        <div class="strength-bar" id="strength-bar"></div>
+        <div class="container">
+            <div class="form-container signup active" id="signup-form">
+                <h1 data-value="ODYSSEUS">ODYSSEUS</h1>
+                <form class="form" id="signupForm">
+                    <div class="form-group">
+                        <label for="signup-username" data-value="Username">Username</label>
+                        <input type="text" id="signup-username" name="username" placeholder="Enter username" required>
+                        <div class="error-message" id="username-error"></div>
                     </div>
-                    <div class="error-message" id="password-error"></div>
+
+                    <div class="form-group">
+                        <label for="signup-email" data-value="Email">Email</label>
+                        <input type="email" id="signup-email" name="email" placeholder="Enter email" required>
+                        <div class="error-message" id="email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password" data-value="Password">Password</label>
+                        <input type="password" id="signup-password" name="password" placeholder="Enter password"
+                            required>
+                        <div class="password-strength">
+                            <div class="strength-bar" id="strength-bar"></div>
+                        </div>
+                        <div class="error-message" id="password-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-confirm-password" data-value="Confirm Password">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" name="confirmPassword"
+                            placeholder="Confirm password" required>
+                        <div class="error-message" id="confirm-password-error"></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="signup-btn" data-value="Create Account">Create
+                        Account</button>
+                    <div class="success-message" id="signup-success"></div>
+                </form>
+
+                <div class="form-footer">
+                    Already have an account? <a href="#" id="switch-to-login">Log in here</a>
                 </div>
-
-                <div class="form-group">
-                    <label for="signup-confirm-password" data-value="Confirm Password">Confirm Password</label>
-                    <input type="password" id="signup-confirm-password" name="confirmPassword"
-                        placeholder="Confirm password" required>
-                    <div class="error-message" id="confirm-password-error"></div>
-                </div>
-
-                <button type="submit" class="submit-btn" id="signup-btn" data-value="Create Account">Create Account</button>
-                <div class="success-message" id="signup-success"></div>
-            </form>
-
-            <div class="form-footer">
-                Already have an account? <a href="#" id="switch-to-login">Log in here</a>
             </div>
-        </div>
 
-        <div class="form-container login" id="login-form">
-            <h1 data-value="ODYSSEUS">ODYSSEUS</h1>
-            <form class="form" id="loginForm">
-                <div class="form-group">
-                    <label for="login-email" data-value="Email">Email</label>
-                    <input type="email" id="login-email" name="email" placeholder="Enter email" required>
-                    <div class="error-message" id="login-email-error"></div>
+            <div class="form-container login" id="login-form">
+                <h1 data-value="ODYSSEUS">ODYSSEUS</h1>
+                <form class="form" id="loginForm">
+                    <div class="form-group">
+                        <label for="login-email" data-value="Email">Email</label>
+                        <input type="email" id="login-email" name="email" placeholder="Enter email" required>
+                        <div class="error-message" id="login-email-error"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password" data-value="Password">Password</label>
+                        <input type="password" id="login-password" name="password" placeholder="Enter password"
+                            required>
+                        <div class="error-message" id="login-password-error"></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="login-btn" data-value="Log In">Log In</button>
+                    <div class="success-message" id="login-success"></div>
+                </form>
+
+                <div class="form-footer">
+                    Don't have an account? <a href="#" id="switch-to-signup">Sign up here</a>
                 </div>
-
-                <div class="form-group">
-                    <label for="login-password" data-value="Password">Password</label>
-                    <input type="password" id="login-password" name="password" placeholder="Enter password" required>
-                    <div class="error-message" id="login-password-error"></div>
-                </div>
-
-                <button type="submit" class="submit-btn" id="login-btn" data-value="Log In">Log In</button>
-                <div class="success-message" id="login-success"></div>
-            </form>
-
-            <div class="form-footer">
-                Don't have an account? <a href="#" id="switch-to-signup">Sign up here</a>
             </div>
         </div>
     </div>
-
     <script type="module">
         import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -533,6 +538,7 @@
             }
         });
 
+        // Hacked text effect function
         function createHackedEffect(element) {
             const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             let interval = null;
@@ -563,23 +569,54 @@
             };
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        // Apply hacked effect to specific elements
+        document.addEventListener('DOMContentLoaded', function () {
+            // Apply to main title
+            const mainTitle = document.querySelector("h1[data-value='ODYSSEUS']");
+            if (mainTitle) {
+                createHackedEffect(mainTitle);
+            }
 
-            const selectorH3s = document.querySelectorAll('#selector1 h3, #selector2 h3');
-            selectorH3s.forEach(h3 => {
-                if (h3.dataset.value) {
-                    createHackedEffect(h3);
-                }
-            });
+            // Apply to labels
             const labels = document.querySelectorAll('label[data-value]');
             labels.forEach(label => {
                 createHackedEffect(label);
             });
 
+            // Apply to buttons
             const buttons = document.querySelectorAll('.submit-btn[data-value]');
             buttons.forEach(button => {
                 createHackedEffect(button);
             });
+
+            // Cursor following effect - moved inside DOMContentLoaded
+            const formWrapper = document.querySelector('.form-wrapper');
+
+            console.log('Form wrapper found:', formWrapper); // Debug line
+
+            if (formWrapper) {
+                document.addEventListener('mousemove', function (e) {
+                    const rect = formWrapper.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    // Calculate distance from center
+                    const deltaX = e.clientX - centerX;
+                    const deltaY = e.clientY - centerY;
+
+                    // Apply subtle movement - increased for testing
+                    const moveX = deltaX * 0.01; // Increased from 0.008 for testing
+                    const moveY = deltaY * 0.01; // Increased from 0.008 for testing
+
+
+                    formWrapper.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
+
+                // Reset position when mouse leaves the window
+                document.addEventListener('mouseleave', function () {
+                    formWrapper.style.transform = 'translate(0px, 0px)';
+                });
+            }
         });
     </script>
 </body>
