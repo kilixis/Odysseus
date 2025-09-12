@@ -612,49 +612,22 @@
                     formWrapper.style.transform = 'translate(0px, 0px)';
                 });
                 
-                const imageTrail = document.getElementById('image-trail');
-                const images = [];
+                // Simple background-only effect - no trail
                 let nextImageIndex = 0;
-                let lastSpawnTime = 0;
-                const spawnDelay = 150;
-
+                let lastBackgroundUpdate = 0;
+                const backgroundUpdateDelay = 300; // Fast background changes
+                
                 const imagePaths = Array.from({ length: 14 }, (_, i) => `pics/${i + 1}.jpeg`);
-
-                imagePaths.forEach(path => {
-                    const img = document.createElement('img');
-                    img.src = path;
-                    img.style.position = 'absolute';
-                    img.style.width = '350px';
-                    img.style.height = '350px';
-                    img.style.objectFit = 'cover';
-                    img.style.opacity = '0';
-                    img.style.transition = 'opacity 0.2s ease-out';
-                    img.style.pointerEvents = 'none';
-                    img.style.transform = 'translate(-50%, -50%)';
-                    imageTrail.appendChild(img);
-                    images.push(img);
-                });
 
                 document.addEventListener('mousemove', (e) => {
                     const currentTime = Date.now();
 
-                    if (currentTime - lastSpawnTime < spawnDelay) return;
-
-                    const img = images[nextImageIndex];
-                    const currentImagePath = imagePaths[nextImageIndex];
-
-                    img.style.left = e.clientX + 'px';
-                    img.style.top = e.clientY + 'px';
-                    img.style.opacity = '0.07';
-
-                    document.body.style.backgroundImage = `url('${currentImagePath}')`;
-
-                    setTimeout(() => {
-                        img.style.opacity = '0';
-                    }, 850);
-
-                    nextImageIndex = (nextImageIndex + 1) % images.length;
-                    lastSpawnTime = currentTime;
+                    // Only update background on mouse movement
+                    if (currentTime - lastBackgroundUpdate > backgroundUpdateDelay) {
+                        document.body.style.backgroundImage = `url('${imagePaths[nextImageIndex]}')`;
+                        nextImageIndex = (nextImageIndex + 1) % imagePaths.length;
+                        lastBackgroundUpdate = currentTime;
+                    }
                 });
             }
         });
