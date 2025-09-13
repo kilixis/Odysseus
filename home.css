@@ -3,20 +3,14 @@
     src: url("fonts/BlueScreenPersonalUseRegular-0W1M9.ttf");
 }
 
+@font-face {
+    font-family: "Hanson";
+    src: url("fonts/Hanson-Bold.ttf");
+}
+
 * {
     margin: 0;
     padding: 0;
-}
-
-body {
-    height: 100vh;
-    font-family: "Odysseus";
-    background-color: #111;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 ::-moz-selection {
@@ -28,4 +22,51 @@ body {
 ::selection {
     color: #111;
     background: #d16a00;
+}
+
+body {
+    background-color: #111;
+}
+
+#title {
+    font-family: "Odysseus";
+    font-size: 5rem;
+    color: white;
+}
+
+.place-list {
+    border-top: 1px solid #d16a00;
+}
+
+.place {
+    height: 80px;
+    clip-path: polygon(0, 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.place-wrapper {
+    position: relative;
+    height: 240px;
+    will-change: transform;
+    transform: translateY(-160px);
+}
+
+.place-name, place-detail {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #d16a00;
+}
+
+.place-name {
+    background-color: #111;
+    color: white;
+}
+
+.place-detail {
+    background-color: #111;
+    color: #d16a00;
 }
